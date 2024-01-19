@@ -68,7 +68,8 @@ require 'header.php'
                                     <option value="bedcover">Bedcover</option>
                                     <option value="kiloan">Kiloan</option>
                                     <option value="kaos">Kaos</option>
-                                    <option value="Satuan">Satuan</option>
+                                    <option value="satuan">Satuan</option>
+                                    <option value="atuan">lain</option>
                                     
 
 

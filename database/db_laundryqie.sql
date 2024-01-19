@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2024 at 11:14 AM
+-- Generation Time: Jan 19, 2024 at 12:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,33 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_laundryqie`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_h_pelanggan`
+--
+
+CREATE TABLE `tbl_h_pelanggan` (
+  `id_pelanggan` int(11) NOT NULL,
+  `nama_pelanggan` varchar(228) NOT NULL,
+  `alamat_pelanggan` text NOT NULL,
+  `jenis_kelamin` enum('L','P') NOT NULL,
+  `telp_pelanggan` varchar(15) NOT NULL,
+  `no_ktp` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tbl_h_pelanggan`
+--
+
+INSERT INTO `tbl_h_pelanggan` (`id_pelanggan`, `nama_pelanggan`, `alamat_pelanggan`, `jenis_kelamin`, `telp_pelanggan`, `no_ktp`) VALUES
+(28, 'asep haseup', 'CKM', 'L', '08567400856', '1233333333'),
+(29, 'sakur', 'cikampek', 'L', '085779519540', '1233'),
+(30, 'asep haseup', 'jalan jalan', 'L', '08567400856', '1233333333'),
+(31, 'gegeg', 'karawanggggkdfkd', 'L', '8577951954088', '1233'),
+(32, 'hvhgchgf', 'v b b ', 'L', '08576432', '54546444644'),
+(33, 'Ujang', 'khjfvgjjghj', 'L', '5655655', '6565655');
 
 -- --------------------------------------------------------
 
@@ -42,11 +69,8 @@ CREATE TABLE `tbl_m_detail_transaksi` (
 --
 
 INSERT INTO `tbl_m_detail_transaksi` (`id_detail`, `id_transaksi`, `id_paket`, `qty`, `total_harga`, `keterangan`, `total_bayar`) VALUES
-(16, 36, 20, 20, 44000, '', 500000),
-(17, 37, 20, 50, 110000, '', 200000),
-(18, 39, 21, 15, 21000, '', 25000),
-(19, 40, 20, 10, 22000, '', 0),
-(20, 41, 20, 10, 22000, '', 50000);
+(21, 42, 31, 5, 30000, '', 40000),
+(22, 43, 31, 2, 12000, '', 20000);
 
 -- --------------------------------------------------------
 
@@ -68,7 +92,6 @@ CREATE TABLE `tbl_m_outlet` (
 INSERT INTO `tbl_m_outlet` (`id_outlet`, `nama_outlet`, `alamat_outlet`, `telp_outlet`) VALUES
 (9, 'Outlet 1', 'Karawang, Indonesia', '08555555555'),
 (10, 'Outlet 2', 'ckm, Karawang, Indonesia', '081222222222'),
-(11, 'Outlet 3', 'cilamaya, Karawang', '081223446312'),
 (12, 'Outlet 4', 'dengklok, Karawang', '0826377453886');
 
 -- --------------------------------------------------------
@@ -79,7 +102,7 @@ INSERT INTO `tbl_m_outlet` (`id_outlet`, `nama_outlet`, `alamat_outlet`, `telp_o
 
 CREATE TABLE `tbl_m_paket_cuci` (
   `id_paket` int(11) NOT NULL,
-  `jenis_paket` enum('kiloan','selimut','bedcover','kaos','sepatu','lain') NOT NULL,
+  `jenis_paket` enum('kiloan','selimut','bedcover','kaos','satuan','lain') NOT NULL,
   `nama_paket` varchar(228) NOT NULL,
   `harga` int(11) NOT NULL,
   `outlet_id` int(11) NOT NULL
@@ -90,10 +113,7 @@ CREATE TABLE `tbl_m_paket_cuci` (
 --
 
 INSERT INTO `tbl_m_paket_cuci` (`id_paket`, `jenis_paket`, `nama_paket`, `harga`, `outlet_id`) VALUES
-(20, 'kiloan', 'Paket Wangi Tahan Lama', 2200, 9),
-(21, 'kaos', 'Paket Cepat Kering', 1400, 10),
-(22, 'selimut', 'Paket Harum', 1500, 11),
-(23, 'kiloan', 'Paket Kering Wangi', 2500, 9);
+(31, 'lain', 'Pewangi Tahan Lama', 6000, 9);
 
 -- --------------------------------------------------------
 
@@ -115,10 +135,13 @@ CREATE TABLE `tbl_m_pelanggan` (
 --
 
 INSERT INTO `tbl_m_pelanggan` (`id_pelanggan`, `nama_pelanggan`, `alamat_pelanggan`, `jenis_kelamin`, `telp_pelanggan`, `no_ktp`) VALUES
-(23, 'bedul', 'cilamaya', 'P', '088888888888', '123456789'),
+(23, 'bedul ge', 'cilamaya', 'P', '088888888888', '123456789'),
 (24, 'adul', 'ckm, Karawang', 'L', '0821123311131', '0987654321'),
 (25, 'dagul', 'dengklok, Karawang', 'L', '08123456244567', '1234567890'),
-(26, 'badal', 'jarong', 'L', '081736281', '461246247');
+(26, 'badal', 'jarong', 'L', '081736281', '461246247'),
+(28, 'asep haseup', 'CKM', 'L', '08567400856', '1233333333'),
+(30, 'asep haseup', 'jalan jalan', 'L', '08567400856', '1233333333'),
+(33, 'Ujang9', 'khjfvgjjghj', 'L', '5655655', '6565655');
 
 --
 -- Triggers `tbl_m_pelanggan`
@@ -168,7 +191,7 @@ CREATE TABLE `tbl_m_user` (
 
 INSERT INTO `tbl_m_user` (`id_user`, `nama_user`, `username`, `password`, `outlet_id`, `role`) VALUES
 (1, 'adminku', 'admin', '21232f297a57a5a743894a0e4a801fc3', 9, 'admin'),
-(3, 'ownerku', 'owner', '72122ce96bfec66e2396d2e25225d70a', 10, 'owner'),
+(3, 'ownerku', 'owner', '72122ce96bfec66e2396d2e25225d70a', NULL, 'owner'),
 (6, 'Kasir ', 'kasir', 'c7911af3adbd12a035b289556d96470a', 9, 'kasir');
 
 -- --------------------------------------------------------
@@ -183,6 +206,13 @@ CREATE TABLE `tbl_saran` (
   `isi_saran` text NOT NULL,
   `tgl_saran` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tbl_saran`
+--
+
+INSERT INTO `tbl_saran` (`id_saran`, `id_pelanggan`, `isi_saran`, `tgl_saran`) VALUES
+(19, 24, 'yang bener aje', '2024-01-19 18:29:12');
 
 -- --------------------------------------------------------
 
@@ -207,7 +237,7 @@ INSERT INTO `tbl_stockbarang` (`idbarang`, `namabarang`, `deskripsi`, `stock`) V
 (36, 'cpu', 'marvin', 200),
 (37, 'mesin', 'yaya', 122),
 (38, 'mesin', 'farhna', 212),
-(39, 'bayuu', 'bahu', 12);
+(40, 'Sabun', 'aya keneh hiji mh', 5);
 
 -- --------------------------------------------------------
 
@@ -240,7 +270,9 @@ INSERT INTO `tbl_t_transaksi` (`id_transaksi`, `outlet_id`, `kode_invoice`, `id_
 (37, 9, 'QIE202009035702', 23, '2024-09-03 05:03:37', '2024-09-10 12:00:00', '2024-09-03 05:08:28', 0, 0, 0, 'baru', 'dibayar', 1),
 (39, 10, 'QIE202009034317', 24, '2024-09-03 05:19:12', '2024-09-10 12:00:00', '2024-09-03 05:21:41', 0, 0, 0, 'baru', 'dibayar', NULL),
 (40, 9, 'QIE202009040521', 24, '2024-09-04 03:21:09', '2024-09-11 12:00:00', NULL, 0, 0, 0, 'baru', 'belum', 1),
-(41, 9, 'QIE202009040528', 25, '2024-09-04 03:28:21', '2024-09-11 12:00:00', '2024-09-04 03:29:00', 0, 0, 0, 'selesai', 'dibayar', 1);
+(41, 9, 'QIE202009040528', 25, '2024-09-04 03:28:21', '2024-09-11 12:00:00', '2024-09-04 03:29:00', 0, 0, 0, 'selesai', 'dibayar', 1),
+(42, 9, 'QIE202401191621', 24, '2024-01-19 12:21:34', '2024-01-26 12:00:00', '2024-01-19 12:21:59', 0, 0, 0, 'baru', 'dibayar', 1),
+(43, 9, 'QIE202401191426', 33, '2024-01-19 12:26:34', '2024-01-26 12:00:00', '2024-01-19 12:26:50', 0, 0, 0, 'baru', 'dibayar', 6);
 
 -- --------------------------------------------------------
 
@@ -270,6 +302,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tbl_h_pelanggan`
+--
+ALTER TABLE `tbl_h_pelanggan`
+  ADD PRIMARY KEY (`id_pelanggan`);
 
 --
 -- Indexes for table `tbl_m_detail_transaksi`
@@ -332,52 +370,58 @@ ALTER TABLE `tbl_t_transaksi`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_h_pelanggan`
+--
+ALTER TABLE `tbl_h_pelanggan`
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
 -- AUTO_INCREMENT for table `tbl_m_detail_transaksi`
 --
 ALTER TABLE `tbl_m_detail_transaksi`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_m_outlet`
 --
 ALTER TABLE `tbl_m_outlet`
-  MODIFY `id_outlet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_outlet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_m_paket_cuci`
 --
 ALTER TABLE `tbl_m_paket_cuci`
-  MODIFY `id_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_paket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `tbl_m_pelanggan`
 --
 ALTER TABLE `tbl_m_pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tbl_m_user`
 --
 ALTER TABLE `tbl_m_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_saran`
 --
 ALTER TABLE `tbl_saran`
-  MODIFY `id_saran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_saran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_stockbarang`
 --
 ALTER TABLE `tbl_stockbarang`
-  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `idbarang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tbl_t_transaksi`
 --
 ALTER TABLE `tbl_t_transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Constraints for dumped tables
@@ -408,10 +452,3 @@ ALTER TABLE `tbl_m_user`
 --
 ALTER TABLE `tbl_t_transaksi`
   ADD CONSTRAINT `tbl_t_transaksi_ibfk_4` FOREIGN KEY (`id_user`) REFERENCES `tbl_m_user` (`id_user`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_t_transaksi_ibfk_5` FOREIGN KEY (`id_pelanggan`) REFERENCES `tbl_m_pelanggan` (`id_pelanggan`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_t_transaksi_ibfk_6` FOREIGN KEY (`outlet_id`) REFERENCES `tbl_m_outlet` (`id_outlet`) ON DELETE SET NULL ON UPDATE CASCADE;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

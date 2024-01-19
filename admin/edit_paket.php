@@ -7,6 +7,7 @@ $jenis = [
     'selimut',
     'bedcover',
     'kaos',
+    'satuan',
     'lain'
 ];
 

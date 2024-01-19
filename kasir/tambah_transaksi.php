@@ -11,14 +11,15 @@ $id_outlet = $_SESSION['outlet_id'];
 $id_user = $_SESSION['user_id'];
 $id_pelanggan = $_GET['id'];
 
-$query = "SELECT * FROM tbl_m_outlet ";
-$outlet = mysqli_query($conn, $query);
+$query = "SELECT nama_outlet FROM tbl_m_outlet WHERE id_outlet = '$id_outlet'";
+$data = mysqli_query($conn, $query);
+$outlet = mysqli_fetch_assoc($data);
 
 $query2 = "SELECT nama_pelanggan FROM tbl_m_pelanggan WHERE id_pelanggan = '$id_pelanggan'";
 $data2 = mysqli_query($conn, $query2);
 $pelanggan = mysqli_fetch_assoc($data2);
 
-$query3 = "SELECT * FROM tbl_m_paket_cuci ";
+$query3 = "SELECT * FROM tbl_m_paket_cuci WHERE outlet_id = '$id_outlet'";
 $paket = mysqli_query($conn, $query3);
 
 if (isset($_POST['btn-simpan'])) {
@@ -26,8 +27,6 @@ if (isset($_POST['btn-simpan'])) {
     $biaya_tambah = $_POST['biaya_tambahan'];
     $diskon = $_POST['diskon'];
     $pajak = $_POST['pajak'];
-    $id_outlet = $_POST['outlet_id'];
-
 
     $query4 = "INSERT INTO tbl_t_transaksi (outlet_id, kode_invoice, id_pelanggan, tgl, batas_waktu, biaya_tambahan, diskon, pajak, status, status_bayar, id_user) VALUES ('$id_outlet', '$kode_invoice', '$id_pelanggan', '$tgl', '$batas_waktu', '$biaya_tambah', '$diskon', '$pajak', 'baru', 'belum', '$id_user')";
     $insert = mysqli_query($conn, $query4);
@@ -99,12 +98,9 @@ require 'header.php';
                                 <input type="text" name="kode_invoice" class="form-control form-control" id="defaultInput" value="<?= $kode; ?>" readonly>
                             </div>
                             <div class="form-group">
-                                <label for="defaultSelect">Outlet</label>
-                                <select name="outlet_id" class="form-control form-control" id="defaultSelect">
-                                    <?php while ($key = mysqli_fetch_array($outlet)) { ?>
-                                        <option value="<?= $key['id_outlet']; ?>"><?= $key['nama_outlet']; ?></option>
-                                    <?php } ?>
-                                </select>
+                                <label for="largeInput">Outlet</label>
+                                <input type="text" name="" class="form-control form-control" id="defaultInput" value="<?= $outlet['nama_outlet']; ?>" readonly>
+                            </div>
                             <div class="form-group">
                                 <label for="largeInput">Pelanggan</label>
                                 <input type="text" name="" class="form-control form-control" id="defaultInput" value="<?= $pelanggan['nama_pelanggan']; ?>" readonly>
@@ -144,4 +140,4 @@ require 'header.php';
         </div>
     </div>
 </div>
-<?php require 'footer.php'; ?>
+<?php require 'footer.php'; ?>
